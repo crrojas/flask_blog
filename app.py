@@ -27,6 +27,11 @@ def show_entries():
     db.close()
     return render_template('entries.html', entries=entries)
 
+@app.route('/crear')
+def new_post():
+    return render_template('form.html')
+
+
 if __name__ == "__main__":
     app.run(debug=True)
 
