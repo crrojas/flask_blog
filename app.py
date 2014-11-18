@@ -1,6 +1,9 @@
 # -*- coding: utf-8 -*-
 from sqlite3 import dbapi2 as sqlite3
-from flask import Flask, render_template
+from flask import (
+    Flask,
+    render_template,
+    request)
 
 app = Flask(__name__)
 
@@ -27,9 +30,22 @@ def show_entries():
     db.close()
     return render_template('entries.html', entries=entries)
 
-@app.route('/crear')
+@app.route('/form', methods=['GET', 'POST'])
 def new_post():
-    return render_template('form.html')
+    if request.method == 'GET':
+        return render_template('form.html')
+    elif request.method == 'POST':
+        title = request.form['title']
+        description = request.form['description']
+        db = connect_db()
+        db.execute(
+            'INSERT INTO entry (title, description) values (?, ?)',
+            [title, description])
+        db.commit()
+        db.close()
+        return u"Operación exitosa"
+    else:
+        return "Acceso denegado"
 
 
 if __name__ == "__main__":
