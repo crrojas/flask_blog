@@ -1,18 +1,12 @@
-<!doctype html>
-<html>
-<head>
-<title> Blog Flask </title>
-</head>
-<body>
+{% extends "base.html" %}
 
-    <ul>
-        {% for entry in entries %}
-        <li>
-            <h2>{{ entry.title }}</h2>
-            <p> {{ entry.description }}</p>
-        </li>
-        {% endfor %}
-    </ul>
-
-</body>
-</html>
+{% block content %}
+<ul>
+    {% for entry in entries %}
+    <li>
+        <h2>{{ entry.title }}</h2>
+        <p> {{ entry.description }}</p>
+    </li>
+    {% endfor %}
+</ul>
+{% endblock content %}
